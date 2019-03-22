@@ -6,6 +6,23 @@ const {app, BrowserWindow} = require('electron')
 let mainWindow
 
 function createWindow () {
+  const { netLog } = require('electron')
+
+  netLog.startLogging("./netlog.log")
+  if(typeof(netLog.currentlyLogging) === "boolean") {
+    console.log('netLog.currentlyLogging is an boolean as expected: ', typeof(netLog.currentlyLogging), " => ", netLog.currentlyLogging );
+  } else {
+    console.log('Huh, netLog.currentlyLogging is not a boolean: ', typeof(netLog.currentlyLogging), " => ", netLog.currentlyLogging );
+  }
+
+  if(typeof(netLog.currentlyLoggingPath) === "string") {
+    console.log('netLog.currentlyLoggingPath is an string as expected: ', typeof(netLog.currentlyLoggingPath), " => ", netLog.currentlyLoggingPath );
+  } else {
+    console.log('Huh, netLog.currentlyLoggingPath is not a string: ', typeof(netLog.currentlyLoggingPath), " => ", netLog.currentlyLoggingPath );
+  }
+  netLog.stopLogging(() => {});
+
+
   // Create the browser window.
   mainWindow = new BrowserWindow({width: 800, height: 600})
 
